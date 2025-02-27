@@ -1,0 +1,106 @@
+using System;
+
+public class SinglyLinkedList
+{
+    public static void Main(string[] args)
+    {
+        // Initialize a new linked list
+        LinkedList list = new LinkedList();
+        
+        // Add nodes with values 1, 2, and 3
+        list.AddNext(1);
+        list.AddNext(2);
+        list.AddNext(3);
+        
+        // Print the linked list
+        list.PrintList();
+        
+        // Remove the node with value 2
+        list.Remove(2);
+        
+        // Print the linked list after removal
+        list.PrintList();
+    }
+}
+
+// Class representing a singly linked list
+public class LinkedList
+{
+    // Head node of the list
+    Node head;
+    
+    // Removes the first node containing the given data
+    public void Remove(int data)
+    {
+        // If the list is empty, do nothing
+        if (head == null) return;
+        
+        // If the head node contains the data, update head to the next node
+        if (head.Data == data)
+        {
+            head = head.Next;
+            return;
+        }
+        
+        Node current = head;
+        // Traverse the list to find the node before the one to be removed
+        while (current.Next != null)
+        {
+            if (current.Next.Data == data)
+            {
+                // Remove the node by skipping it in the link chain
+                current.Next = current.Next.Next;
+                return;
+            }
+            current = current.Next; // Move to the next node
+        }
+    }
+    
+    // Adds a new node at the end of the list
+    public void AddNext(int data)
+    {
+        Node node = new Node(data);
+        
+        // If the list is empty, set the new node as head
+        if (head == null)
+        {
+            head = node;
+            return;
+        }
+        
+        // Traverse to the end of the list
+        Node current = head;
+        while (current.Next != null)
+        {
+            current = current.Next;
+        }
+        current.Next = node; // Add the new node at the end
+    }
+    
+    // Prints all nodes in the list
+    public void PrintList()
+    {
+        Node current = head;
+        
+        // Traverse the list and print each node's data
+        while (current != null)
+        {
+            Console.Write(current.Data + " -> ");
+            current = current.Next;
+        }
+        Console.WriteLine("null"); // Mark the end of the list
+    }
+}
+
+// Class representing a node in the linked list
+public class Node
+{
+    public int Data; // Data stored in the node
+    public Node Next; // Reference to the next node
+    
+    // Constructor to initialize node with data
+    public Node(int data)
+    {
+        Data = data;
+    }
+}
